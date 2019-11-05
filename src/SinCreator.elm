@@ -17,8 +17,8 @@ Tasks:  Changing how the shape looks and moves and then copying the code that cr
 Typical Interaction:  First the user changes the wave to have a height of 6 and a frequency of 3. Then they select the rotate transformation. Finally, they copy the code.
 
 ### Constraints
-- we wanted to constrain what the user can do by taking the option of the cos wave since it had nothing to do with what the user wants to do
-- this made our interface less cluttered
+- we wanted to constrain what the user can do by taking the option of the cos wave since it had nothing to do with what the user wants to do,
+doing this this made our interface less cluttered
 
 ### Signifier
 - we wanted to add the following steps so the user would know what actions do what
@@ -35,12 +35,13 @@ can see all the available actions
 
 ### Feedback
 - highlight the transformation that is currently shown
-- add a scale to the amplitude
+- add a scale to show how big the shape is at any moment
 - we made the shape box initialially have nothing, that way the user does not get intimidated by what is happening,
 they only realize what the shape box does once they select an option
 
 ### Mapping
 - we wanted to make the steps easy to read so we did a top-down spatial layout, which is helpful for users so they know the order even without looking at the step number
+- we also put the shape in the centre of the page, keeping consistent with shape creator's layout
 
 ### Affordance
 - the shape generator options affords the different animations you can generate
