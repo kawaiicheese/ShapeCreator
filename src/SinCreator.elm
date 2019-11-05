@@ -1105,7 +1105,7 @@ view model =
 
         yourCodeGroup =
             group
-                [ rect 200 100 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 100, 20 )
+                [ rect 230 100 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 100, 20 )
                 , rect 70 12 |> filled white |> addOutline (solid 1) lightGrey |> move ( 50, 73 )
                 , text "3. Your Code!" |> serif |> italic |> size 10 |> filled titleColour |> move ( 20, 70 )
                 -- , copiable "--Add these new definitions to your code" |> move ( 0, 60 )
@@ -1224,7 +1224,7 @@ view model =
         |> move ( -140, 80 )
     , titlesText |> makeTransparent 0
     , cosLabel |> move ( -127, 67 )
-    , transformsGraphicsGroup |> move ( 0, -100 )
+    , transformsGraphicsGroup |> move ( -75, -95 )
 
     --, moveGraphicsX |> move ( 180, 220 )
     --, moveGraphicsY |> move ( 60, 50 )
@@ -1235,7 +1235,7 @@ view model =
         |> move ( -20, 15 )
 
     --, rgbGraphics |> move ( 140, 90 )
-    , yourCodeGroup |> move ( -30, -130 )
+    , yourCodeGroup |> move ( 30, -170 )
     ]
 
 
