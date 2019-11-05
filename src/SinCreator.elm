@@ -27,7 +27,8 @@ Typical Interaction:  First the user changes the wave to have a height of 6 and 
 3. copy code
 
 ### Disoverability
-- we wanted to show all the shape/anmation options instead of cycling through them with arrow buttons
+- we wanted to show all the shape/animation options instead of cycling through them with arrow buttons so that the user
+can see all the available actions
 
 ### Conceptual Model
 - model similar to other activities such as shape creator
