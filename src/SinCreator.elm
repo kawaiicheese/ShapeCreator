@@ -1128,6 +1128,22 @@ view model =
                     --, text (moveText model.transformFun) |> size 10 |> filled black |> notifyTap TransformsFunctionChange |> move ( x1, 105 ) |> notifyLeave (TransM (\m -> { m | transformsNumTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsNumTransp = 1 })) |> makeTransparent model.transformsNumTransp
                     ]
                     |> move ( 30, 50 )
+                -- list that shows all the transformations and highlights the one selected
+                , group <|
+                    List.map2
+                        (\ss y ->
+                            applyTransformsText ss
+                                |> text
+                                |> fixedwidth
+                                |> size 10
+                                |> filled black
+                                |> notifyTap (TransM (\m -> { m | uTransform = ss } ))
+                                |> move ( -68, -2.5 )
+                                |> time4 model ss 140 10
+                                |> move ( -35, y )
+                        )
+                        [ ScaleU, MoveX, MoveY, MoveCircle, URotate, ScaleX, ScaleY, MakeTransparent, EditableXSin ]
+                        (List.map (\x -> -10 * Basics.toFloat x) (List.range 0 20))
                 ]
 
         {-
@@ -1276,3 +1292,13 @@ copiable str =
 
 copiable2 str =
     str |> text |> selectable |> fixedwidth |> size 9 |> filled black
+
+-- Checks if user wants to perform transformation then calls uTransform, using current time.
+time4 model t w h uTransform =
+    if t == model.uTransform
+
+    then
+        group [ rect w h |> filled (rgba 255 137 5 (0.6 + 0.4 * sin (5 * model.currentTime - 1.5))), uTransform ]
+
+    else
+        uTransform
