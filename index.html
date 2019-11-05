@@ -8719,7 +8719,7 @@ var $author$project$ShapeCreator$init = {alpha: 0.5, angle: 30, blue: 50, button
 var $author$project$SinCreator$None = {$: 'None'};
 var $author$project$SinCreator$NotifyTap = {$: 'NotifyTap'};
 var $author$project$SinCreator$OneFun = {$: 'OneFun'};
-var $author$project$SinCreator$ScaleU = {$: 'ScaleU'};
+var $author$project$SinCreator$Plain = {$: 'Plain'};
 var $author$project$SinCreator$Sin = {$: 'Sin'};
 var $author$project$SinCreator$UFun = {$: 'UFun'};
 var $author$project$SinCreator$UFunZero = {$: 'UFunZero'};
@@ -8799,7 +8799,7 @@ var $author$project$SinCreator$init = {
 	uShiftScale: 1,
 	uSinGraph: 0,
 	uTextTransp: 0.5,
-	uTransform: $author$project$SinCreator$ScaleU,
+	uTransform: $author$project$SinCreator$Plain,
 	v: 1,
 	vArg: 0,
 	vDilation: 1,
@@ -10178,6 +10178,7 @@ var $author$project$SinCreator$MakeTransparent = {$: 'MakeTransparent'};
 var $author$project$SinCreator$MoveCircle = {$: 'MoveCircle'};
 var $author$project$SinCreator$MoveX = {$: 'MoveX'};
 var $author$project$SinCreator$MoveY = {$: 'MoveY'};
+var $author$project$SinCreator$ScaleU = {$: 'ScaleU'};
 var $author$project$SinCreator$ScaleX = {$: 'ScaleX'};
 var $author$project$SinCreator$ScaleY = {$: 'ScaleY'};
 var $author$project$SinCreator$URotate = {$: 'URotate'};
@@ -10199,8 +10200,10 @@ var $author$project$SinCreator$cycleTransforms = function (tr) {
 			return $author$project$SinCreator$MoveCircle;
 		case 'MoveCircle':
 			return $author$project$SinCreator$EditableXSin;
-		default:
+		case 'EditableXSin':
 			return $author$project$SinCreator$ScaleU;
+		default:
+			return $author$project$SinCreator$Plain;
 	}
 };
 var $author$project$SinCreator$cycleTransformsReverse = function (tr) {
@@ -10221,8 +10224,10 @@ var $author$project$SinCreator$cycleTransformsReverse = function (tr) {
 			return $author$project$SinCreator$MoveY;
 		case 'EditableXSin':
 			return $author$project$SinCreator$MoveCircle;
-		default:
+		case 'ScaleU':
 			return $author$project$SinCreator$EditableXSin;
+		default:
+			return $author$project$SinCreator$Plain;
 	}
 };
 var $author$project$SinCreator$Cos = {$: 'Cos'};
@@ -18671,9 +18676,11 @@ var $author$project$SinCreator$applyTransforms = F2(
 				return $MacCASOutreach$graphicsvg$GraphicSVG$scaleY((model.uSinGraph + model.uScale) / 10);
 			case 'MakeTransparent':
 				return $MacCASOutreach$graphicsvg$GraphicSVG$makeTransparent(u);
-			default:
+			case 'EditableXSin':
 				return $MacCASOutreach$graphicsvg$GraphicSVG$move(
 					_Utils_Tuple2(model.uCosGraph, 0));
+			default:
+				return $MacCASOutreach$graphicsvg$GraphicSVG$scale(1);
 		}
 	});
 var $author$project$SinCreator$applyTransformsText = function (tr) {
@@ -18694,8 +18701,10 @@ var $author$project$SinCreator$applyTransformsText = function (tr) {
 			return ' scaleY ';
 		case 'MakeTransparent':
 			return ' makeTransparent ';
-		default:
+		case 'EditableXSin':
 			return ' editable Y Sin ';
+		default:
+			return 'no transformation';
 	}
 };
 var $elm$core$String$right = F2(
@@ -18736,8 +18745,10 @@ var $author$project$SinCreator$applyTransformsYourCode = F2(
 				return '|> scaleY ' + ($elm$core$String$fromFloat(model.uScale) + ('*sin(' + $author$project$SinCreator$cosinString(model)));
 			case 'MakeTransparent':
 				return '|> makeTransparent ' + ($elm$core$String$fromFloat(model.uScale) + ('*sin(' + $author$project$SinCreator$cosinString(model)));
-			default:
+			case 'EditableXSin':
 				return '|> move (' + ($elm$core$String$fromFloat(model.editableScale) + ('*cos(model.time) , ' + ('0' + ')')));
+			default:
+				return '';
 		}
 	});
 var $author$project$SinCreator$copiable = function (str) {
