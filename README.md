@@ -21,10 +21,10 @@ elm make src/Main.elm
 
 ## Tasks
 - [ ] create steps
-- [ ] initialize shape box with nothing
+- [*] initialize shape box with nothing
 - [ ] add interface similar to shapecreator for the shapes
-- [ ] add highlighting to whatever is selected
-- [ ] take out second wave
+- [*] add highlighting to whatever is selected
+- [*] take out second wave
 - [ ] sin/cos toggle
 - [ ] scale
 

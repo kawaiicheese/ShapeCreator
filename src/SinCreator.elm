@@ -96,7 +96,7 @@ init =
     , vDilation = 1
     , editableDilation = 0
     , editableShift = 0
-    , uScale = 5
+    , uScale = 10
     , vScale = 5
     , editableScale = 0
     , uShift = 0
@@ -147,7 +147,7 @@ init =
     , maxFrequency = 10
     , maxShift = 2 * Basics.pi
     , cosWaveLength = 200
-    , sinWaveLength = 100
+    , sinWaveLength = 200
     }
 
 
@@ -1106,7 +1106,7 @@ sinCurve model =
         points =
             List.map2 (\x y -> ( x, y )) model.sinGraph (List.drop 1 model.sinGraph)
     in
-    List.take (numGraphPoints model) (List.map (\( ( a, b, col1 ), ( c, d, col2 ) ) -> line ( a, b ) ( c, d ) |> outlined (solid 1) col1) points)
+    List.take (numGraphPoints model) (List.map (\( ( a, b, col1 ), ( c, d, col2 ) ) -> line ( a, b ) ( c, d ) |> outlined (solid 1) darkRed) points)
 
 
 cosCurve model =
@@ -1174,8 +1174,8 @@ view model =
                 , text "3. Your Code!" |> serif |> italic |> size 10 |> filled titleColour |> move ( 20, 70 )
                 -- , copiable "--Add these new definitions to your code" |> move ( 0, 60 )
                 , copiable ("u = " ++ String.fromFloat model.uScale ++ "*" ++ textTrig model.trigCycleU ++ "(" ++ String.fromFloat model.uDilation ++ "*model.time+" ++ String.fromFloat model.uShift ++ ")") |> move ( 0, 50 )
-                , copiable "square 15" |> move ( 0, 30 )
-                , copiable ("       |> outlined (solid 0.25) rgb (" ++ String.fromFloat model.rScale ++ "*" ++ showFun model.rFun u v ++ " " ++ String.fromFloat model.gScale ++ "*" ++ showFun model.gFun u v ++ " " ++ String.fromFloat model.bScale ++ "*" ++ showFun model.bFun u v ++ ")") |> move ( 0, 20 )
+                , copiable "square 20" |> move ( 0, 30 )
+                , copiable ("       |> filledc rgb (" ++ String.fromFloat model.rScale ++ "*" ++ showFun model.rFun u v ++ " " ++ String.fromFloat model.gScale ++ "*" ++ showFun model.gFun u v ++ " " ++ String.fromFloat model.bScale ++ "*" ++ showFun model.bFun u v ++ ")") |> move ( 0, 20 )
                 , copiable ("       " ++ applyTransformsYourCode model model.uTransform) |> move ( 0, 10 )
                 , copiable ("       |> move(" ++ moveText model.moveX1 ++ "," ++ moveText model.moveY1 ++ ")") |> move ( 0, 0 )
                 -- , copiable "--Add the following code to your shapes:" |> move ( 0, -10 )
@@ -1183,7 +1183,7 @@ view model =
                 ]
 
         transformsGraphicsGroup =
-                square 30 |> filled (rgb model.r model.g model.b) |> applyTransforms model.uTransform model |> makeTransparent 1.0 |> move ( 45, 65 )
+                square 20 |> filled darkRed |> applyTransforms model.uTransform model |> makeTransparent 1.0 |> move ( 45, 65 )
 
         transformsGraphicsControlGroup =
             group
@@ -1213,7 +1213,7 @@ view model =
            moveGraphicsY =
                group
                    [ rect 120 140 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 10, -50 )
-                   , square 15 |> filled (rgb model.r model.g model.b) |> move ( moveFun model.moveX model, moveFun model.moveY model ) |> move ( 10, -60 )
+                   , square 15 |> filled darkRed |> move ( moveFun model.moveX model, moveFun model.moveY model ) |> move ( 10, -60 )
                    , text "|>" |> fixedwidth |> size 10 |> filled black |> move ( -40, 0 )
                    , text "move(" |> fixedwidth |> size 10 |> filled black |> move ( -25, 0 )
                    , text (moveText model.moveX) |> fixedwidth |> size 10 |> filled black |> notifyTap MoveX |> move ( 3, 0 ) |> notifyEnter (TransM (\m -> { m | moveTextX = 1 })) |> notifyLeave (TransM (\m -> { m | moveTextX = 0.25 })) |> makeTransparent model.moveTextX
@@ -1225,7 +1225,7 @@ view model =
            moveGraphicsX =
                group
                    [ rect 120 140 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 10, -220 )
-                   , square 15 |> filled (rgb model.r model.g model.b) |> move ( moveFun model.moveX1 model, moveFun model.moveY1 model ) |> move ( 10, -230 )
+                   , square 15 |> filled darkRed |> move ( moveFun model.moveX1 model, moveFun model.moveY1 model ) |> move ( 10, -230 )
                    , text "|>" |> fixedwidth |> size 10 |> filled black |> move ( -40, -170 )
                    , text "move(" |> fixedwidth |> size 10 |> filled black |> move ( -25, -170 )
                    , text (moveText model.moveX1) |> fixedwidth |> size 10 |> filled black |> notifyTap MoveX1 |> move ( 3, -170 ) |> notifyEnter (TransM (\m -> { m | moveTextX1 = 1 })) |> notifyLeave (TransM (\m -> { m | moveTextX1 = 0.25 })) |> makeTransparent model.moveTextX1
@@ -1267,28 +1267,39 @@ view model =
         -- Circle that rotates in time with the sin & cosin waves
         circleGraphics =
             group
-                [ line ( -50, 50 ) ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.25
-                , line ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) ( 0, 50 + model.uSinGraph ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.5
-                -- , line ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) ( model.uCosGraph - 50, 0 ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.5
-                , circle 2 |> filled (rgb model.r model.g model.b) |> move ( 0, 50 + model.uSinGraph )
-                -- , circle 2 |> filled (rgb model.r model.g model.b) |> move ( model.uCosGraph - 50, 0 )
-                , circle (abs uScale) |> outlined (solid 1) black |> move ( -50, 50 )
-                , circle 2 |> filled (rgb model.r model.g model.b) |> move ( -50 + model.uScale * notTrigCycleU uArg, 50 + u )
+                [ line ( -50, 50 ) ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) |> outlined (solid 1) darkRed |> makeTransparent 0.25
+                , line ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) ( 0, 50 + model.uSinGraph ) |> outlined (solid 1) darkRed |> makeTransparent 0.5
+                -- , line ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) ( model.uCosGraph - 50, 0 ) |> outlined (solid 1) darkRed |> makeTransparent 0.5
+                , circle 2 |> filled darkRed |> move ( 0, 50 + model.uSinGraph )
+                -- , circle 2 |> filled darkRed |> move ( model.uCosGraph - 50, 0 )
+                , circle (abs uScale) |> outlined (solid 1) darkRed |> move ( -50, 50 )
+                , circle 2 |> filled darkRed |> move ( -50 + model.uScale * notTrigCycleU uArg, 50 + u )
                 ]
-        cosLabel =
-            text (String.fromFloat model.uScale ++ "* cos(" ++ cosinString model) |> fixedwidth |> size 8 |> filled black |> rotate (degrees 90) |> move ( -110, -82 ) |> notifyTap (TransM (\m -> { m | trigCycleU = Cos }))
+        -- cosLabel =
+        --     text (String.fromFloat model.uScale ++ "* cos(" ++ cosinString model) |> fixedwidth |> size 8 |> filled black |> rotate (degrees 90) |> move ( -110, -82 ) |> notifyTap (TransM (\m -> { m | trigCycleU = Cos }))
     in
     [ graphPaperCustom 10 1 (rgb 255 102 102) |> makeTransparent 0.5 -- axes and selected coordinate ticks
     , group
         [ rect 1000 0.5 |> filled (rgb 164 0 0)
         , rect 0.5 1000 |> filled (rgb 164 0 0)
-        , group (sinCurve model) |> move ( 0, 100 )
+        , text "(0,100)" |> size 7 |> filled (rgb 164 0 0) |> move ( 3, 100 )
+        , rect 4 0.5 |> filled (rgb 164 0 0) |> move ( 0, -100 )
+        , text "(0,-100)" |> size 7 |> filled (rgb 164 0 0) |> move ( 3, -100 )
+        , rect 0.5 4 |> filled (rgb 164 0 0) |> move ( -100, 0 )
+        , text "(-100,0)" |> size 7 |> filled (rgb 164 0 0) |> move ( -100, 3 )
+        , rect 0.5 4 |> filled (rgb 164 0 0) |> move ( 100, 0 )
+        , text "(100,0)" |> size 7 |> filled (rgb 164 0 0) |> move ( 100, 3 )
+        , rect 0.5 4 |> filled (rgb 164 0 0) |> move ( -200, 0 )
+        , text "(-200,0)" |> size 7 |> filled (rgb 164 0 0) |> move ( -200, 3 )
+        , rect 0.5 4 |> filled (rgb 164 0 0) |> move ( 200, 0 )
+        , text "(200,0)" |> size 7 |> filled (rgb 164 0 0) |> move ( 200, 3 ) -- put the drawn shape above the graph paper, but under the transparent controls
+        , group (sinCurve model) |> move ( 0, 150 )
         -- , group (cosCurve model) |> move ( -50, 0 )
-        , trigGraphAxis model |> move ( -185, 120 )
-        , circleGraphics |> move ( 0, 50 )
+        , trigGraphAxis model |> move ( -185, 170 )
+        , circleGraphics |> move ( 0, 100 )
         ]
         |> move ( -30, -30 )
-    , cosLabel |> move ( -127, 67 )
+    -- , cosLabel |> move ( -127, 67 )
     , transformsGraphicsGroup |> move ( -75, -95 )
     , transformsGraphicsControlGroup |> move( 200, 50 )
 
@@ -1315,8 +1326,8 @@ downArrow =
 
 trigGraphAxis model =
     group
-        [ rect 0.5 105 |> filled black |> move ( 185, -18 )
-        , rect model.sinWaveLength 0.5 |> filled black |> move ( 185 + model.sinWaveLength / 2, -20 )
+        [ rect 0.5 105 |> filled darkRed |> move ( 185, -18 )
+        , rect model.sinWaveLength 0.5 |> filled darkRed |> move ( 185 + model.sinWaveLength / 2, -20 )
 
         -- Subtract 130 to account for the ratio of the screen and remove excess
         -- , rect 105 0.5 |> filled black |> move ( 132, -70 )
