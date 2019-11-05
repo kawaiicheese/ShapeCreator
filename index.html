@@ -18958,18 +18958,37 @@ var author$project$SinCreator$view = function (model) {
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
 				_Utils_Tuple2(100, 20),
-				A2(
-					MacCASOutreach$graphicsvg$GraphicSVG$makeTransparent,
-					0.25,
-					A3(
-						MacCASOutreach$graphicsvg$GraphicSVG$outlined,
-						MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
-						MacCASOutreach$graphicsvg$GraphicSVG$red,
+				A3(
+					MacCASOutreach$graphicsvg$GraphicSVG$addOutline,
+					MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
+					MacCASOutreach$graphicsvg$GraphicSVG$lightGrey,
+					A2(
+						MacCASOutreach$graphicsvg$GraphicSVG$filled,
+						A4(MacCASOutreach$graphicsvg$GraphicSVG$rgba, 255, 255, 255, 0.5),
 						A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, 200, 100)))),
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(0, 60),
-				author$project$SinCreator$copiable('--Add these new definitions to your code')),
+				_Utils_Tuple2(50, 73),
+				A3(
+					MacCASOutreach$graphicsvg$GraphicSVG$addOutline,
+					MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
+					MacCASOutreach$graphicsvg$GraphicSVG$lightGrey,
+					A2(
+						MacCASOutreach$graphicsvg$GraphicSVG$filled,
+						MacCASOutreach$graphicsvg$GraphicSVG$white,
+						A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, 70, 12)))),
+				A2(
+				MacCASOutreach$graphicsvg$GraphicSVG$move,
+				_Utils_Tuple2(20, 70),
+				A2(
+					MacCASOutreach$graphicsvg$GraphicSVG$filled,
+					author$project$SinCreator$titleColour,
+					A2(
+						MacCASOutreach$graphicsvg$GraphicSVG$size,
+						10,
+						MacCASOutreach$graphicsvg$GraphicSVG$italic(
+							MacCASOutreach$graphicsvg$GraphicSVG$serif(
+								MacCASOutreach$graphicsvg$GraphicSVG$text('3. Your Code!')))))),
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
 				_Utils_Tuple2(0, 50),
@@ -18978,30 +18997,22 @@ var author$project$SinCreator$view = function (model) {
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
 				_Utils_Tuple2(0, 30),
-				author$project$SinCreator$copiable('mySquare = square 15')),
+				author$project$SinCreator$copiable('square 15')),
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(35, 20),
+				_Utils_Tuple2(0, 20),
 				author$project$SinCreator$copiable(
-					'  |> outlined (solid 0.25) rgb (' + (elm$core$String$fromFloat(model.rScale) + ('*' + (A3(author$project$SinCreator$showFun, model.rFun, u, v) + (' ' + (elm$core$String$fromFloat(model.gScale) + ('*' + (A3(author$project$SinCreator$showFun, model.gFun, u, v) + (' ' + (elm$core$String$fromFloat(model.bScale) + ('*' + (A3(author$project$SinCreator$showFun, model.bFun, u, v) + ')'))))))))))))),
+					'       |> outlined (solid 0.25) rgb (' + (elm$core$String$fromFloat(model.rScale) + ('*' + (A3(author$project$SinCreator$showFun, model.rFun, u, v) + (' ' + (elm$core$String$fromFloat(model.gScale) + ('*' + (A3(author$project$SinCreator$showFun, model.gFun, u, v) + (' ' + (elm$core$String$fromFloat(model.bScale) + ('*' + (A3(author$project$SinCreator$showFun, model.bFun, u, v) + ')'))))))))))))),
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(35, 10),
+				_Utils_Tuple2(0, 10),
 				author$project$SinCreator$copiable(
-					'  ' + A2(author$project$SinCreator$applyTransformsYourCode, model, model.uTransform))),
+					'       ' + A2(author$project$SinCreator$applyTransformsYourCode, model, model.uTransform))),
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(35, 0),
+				_Utils_Tuple2(0, 0),
 				author$project$SinCreator$copiable(
-					'  |> move(' + (author$project$SinCreator$moveText(model.moveX1) + (',' + (author$project$SinCreator$moveText(model.moveY1) + ')'))))),
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(0, -10),
-				author$project$SinCreator$copiable('--Add the following code to your shapes:')),
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(10, -20),
-				author$project$SinCreator$copiable('mySquare'))
+					'       |> move(' + (author$project$SinCreator$moveText(model.moveX1) + (',' + (author$project$SinCreator$moveText(model.moveY1) + ')')))))
 			]));
 	var tt = function (str) {
 		return A2(
@@ -19020,26 +19031,29 @@ var author$project$SinCreator$view = function (model) {
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
 				_Utils_Tuple2(45, 70),
-				A2(
-					MacCASOutreach$graphicsvg$GraphicSVG$makeTransparent,
-					0.25,
-					A3(
-						MacCASOutreach$graphicsvg$GraphicSVG$outlined,
-						MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
-						MacCASOutreach$graphicsvg$GraphicSVG$red,
+				A3(
+					MacCASOutreach$graphicsvg$GraphicSVG$addOutline,
+					MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
+					MacCASOutreach$graphicsvg$GraphicSVG$lightGrey,
+					A2(
+						MacCASOutreach$graphicsvg$GraphicSVG$filled,
+						A4(MacCASOutreach$graphicsvg$GraphicSVG$rgba, 255, 255, 255, 0.5),
 						A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, 210, 200)))),
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
 				_Utils_Tuple2(45, 60),
-				A3(
-					author$project$SinCreator$applyTransforms,
-					model.uTransform,
-					model,
+				A2(
+					MacCASOutreach$graphicsvg$GraphicSVG$makeTransparent,
+					1.0,
 					A3(
-						MacCASOutreach$graphicsvg$GraphicSVG$outlined,
-						MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
-						A3(MacCASOutreach$graphicsvg$GraphicSVG$rgb, model.r, model.g, model.b),
-						MacCASOutreach$graphicsvg$GraphicSVG$square(15)))),
+						author$project$SinCreator$applyTransforms,
+						model.uTransform,
+						model,
+						A3(
+							MacCASOutreach$graphicsvg$GraphicSVG$outlined,
+							MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
+							A3(MacCASOutreach$graphicsvg$GraphicSVG$rgb, model.r, model.g, model.b),
+							MacCASOutreach$graphicsvg$GraphicSVG$square(15))))),
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
 				_Utils_Tuple2(30, 50),
@@ -19226,13 +19240,13 @@ var author$project$SinCreator$view = function (model) {
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
 				_Utils_Tuple2(43, -5),
-				A2(
-					MacCASOutreach$graphicsvg$GraphicSVG$makeTransparent,
-					0.25,
-					A3(
-						MacCASOutreach$graphicsvg$GraphicSVG$outlined,
-						MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
-						MacCASOutreach$graphicsvg$GraphicSVG$red,
+				A3(
+					MacCASOutreach$graphicsvg$GraphicSVG$addOutline,
+					MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
+					MacCASOutreach$graphicsvg$GraphicSVG$lightGrey,
+					A2(
+						MacCASOutreach$graphicsvg$GraphicSVG$filled,
+						A4(MacCASOutreach$graphicsvg$GraphicSVG$rgba, 255, 255, 255, 0.5),
 						A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, 140, 50)))),
 				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
@@ -19627,7 +19641,7 @@ var author$project$SinCreator$view = function (model) {
 					]))),
 			A2(
 			MacCASOutreach$graphicsvg$GraphicSVG$move,
-			_Utils_Tuple2(40, 110),
+			_Utils_Tuple2(-30, -130),
 			yourCodeGroup)
 		]);
 };

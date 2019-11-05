@@ -1105,21 +1105,23 @@ view model =
 
         yourCodeGroup =
             group
-                [ rect 200 100 |> outlined (solid 1) red |> makeTransparent 0.25 |> move ( 100, 20 )
-                , copiable "--Add these new definitions to your code" |> move ( 0, 60 )
+                [ rect 200 100 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 100, 20 )
+                , rect 70 12 |> filled white |> addOutline (solid 1) lightGrey |> move ( 50, 73 )
+                , text "3. Your Code!" |> serif |> italic |> size 10 |> filled titleColour |> move ( 20, 70 )
+                -- , copiable "--Add these new definitions to your code" |> move ( 0, 60 )
                 , copiable ("u = " ++ String.fromFloat model.uScale ++ "*" ++ textTrig model.trigCycleU ++ "(" ++ String.fromFloat model.uDilation ++ "*model.time+" ++ String.fromFloat model.uShift ++ ")") |> move ( 0, 50 )
-                , copiable "mySquare = square 15" |> move ( 0, 30 )
-                , copiable ("  |> outlined (solid 0.25) rgb (" ++ String.fromFloat model.rScale ++ "*" ++ showFun model.rFun u v ++ " " ++ String.fromFloat model.gScale ++ "*" ++ showFun model.gFun u v ++ " " ++ String.fromFloat model.bScale ++ "*" ++ showFun model.bFun u v ++ ")") |> move ( 35, 20 )
-                , copiable ("  " ++ applyTransformsYourCode model model.uTransform) |> move ( 35, 10 )
-                , copiable ("  |> move(" ++ moveText model.moveX1 ++ "," ++ moveText model.moveY1 ++ ")") |> move ( 35, 0 )
-                , copiable "--Add the following code to your shapes:" |> move ( 0, -10 )
-                , copiable "mySquare" |> move ( 10, -20 )
+                , copiable "square 15" |> move ( 0, 30 )
+                , copiable ("       |> outlined (solid 0.25) rgb (" ++ String.fromFloat model.rScale ++ "*" ++ showFun model.rFun u v ++ " " ++ String.fromFloat model.gScale ++ "*" ++ showFun model.gFun u v ++ " " ++ String.fromFloat model.bScale ++ "*" ++ showFun model.bFun u v ++ ")") |> move ( 0, 20 )
+                , copiable ("       " ++ applyTransformsYourCode model model.uTransform) |> move ( 0, 10 )
+                , copiable ("       |> move(" ++ moveText model.moveX1 ++ "," ++ moveText model.moveY1 ++ ")") |> move ( 0, 0 )
+                -- , copiable "--Add the following code to your shapes:" |> move ( 0, -10 )
+                -- , copiable "mySquare" |> move ( 10, -20 )
                 ]
 
         transformsGraphicsGroup =
             group
-                [ rect 210 200 |> outlined (solid 1) red |> makeTransparent 0.25 |> move ( 45, 70 )
-                , square 15 |> outlined (solid 1) (rgb model.r model.g model.b) |> applyTransforms model.uTransform model |> move ( 45, 60 )
+                [ rect 210 200 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 45, 70 )
+                , square 15 |> outlined (solid 1) (rgb model.r model.g model.b) |> applyTransforms model.uTransform model |> makeTransparent 1.0 |> move ( 45, 60 )
                 , group
                     [ text (applyTransformsText model.uTransform) |> size 10 |> filled black |> move ( 4, 105 )
                     , triangle 8 |> filled (rgb 255 10 10) |> rotate (degrees 180) |> notifyTap UTransformsReverse |> move ( -70, 105 ) |> notifyLeave (TransM (\m -> { m | transformsLeftArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsLeftArrowTransp = 1 })) |> makeTransparent model.transformsLeftArrowTransp
@@ -1133,7 +1135,7 @@ view model =
         {-
            moveGraphicsY =
                group
-                   [ rect 120 140 |> outlined (solid 1) red |> makeTransparent 0.25 |> move ( 10, -50 )
+                   [ rect 120 140 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 10, -50 )
                    , square 15 |> filled (rgb model.r model.g model.b) |> move ( moveFun model.moveX model, moveFun model.moveY model ) |> move ( 10, -60 )
                    , text "|>" |> fixedwidth |> size 10 |> filled black |> move ( -40, 0 )
                    , text "move(" |> fixedwidth |> size 10 |> filled black |> move ( -25, 0 )
@@ -1145,7 +1147,7 @@ view model =
 
            moveGraphicsX =
                group
-                   [ rect 120 140 |> outlined (solid 1) red |> makeTransparent 0.25 |> move ( 10, -220 )
+                   [ rect 120 140 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 10, -220 )
                    , square 15 |> filled (rgb model.r model.g model.b) |> move ( moveFun model.moveX1 model, moveFun model.moveY1 model ) |> move ( 10, -230 )
                    , text "|>" |> fixedwidth |> size 10 |> filled black |> move ( -40, -170 )
                    , text "move(" |> fixedwidth |> size 10 |> filled black |> move ( -25, -170 )
@@ -1172,7 +1174,7 @@ view model =
 
         rgbGraphics =
             group
-                [ rect 140 50 |> outlined (solid 1) red |> makeTransparent 0.25 |> move ( 43, -5 )
+                [ rect 140 50 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey|> move ( 43, -5 )
                 , text "rgb " |> fixedwidth |> size 10 |> filled black |> move ( -25, 0 )
                 , text ("(" ++ String.fromFloat model.rScale ++ "*" ++ showFun model.rFun u v ++ ")") |> fixedwidth |> size 10 |> filled black |> move ( -5, 0 ) |> notifyTap R |> notifyEnter (TransM (\m -> { m | rTransp = 1 })) |> notifyLeave (TransM (\m -> { m | rTransp = 0.25 })) |> makeTransparent model.rTransp
                 , text ("(" ++ String.fromFloat model.gScale ++ "*" ++ showFun model.gFun u v ++ ")") |> fixedwidth |> size 10 |> filled black |> move ( 35, 0 ) |> notifyTap G |> notifyEnter (TransM (\m -> { m | gTransp = 1 })) |> notifyLeave (TransM (\m -> { m | gTransp = 0.25 })) |> makeTransparent model.gTransp
@@ -1233,7 +1235,7 @@ view model =
         |> move ( -20, 15 )
 
     --, rgbGraphics |> move ( 140, 90 )
-    , yourCodeGroup |> move ( 40, 110 )
+    , yourCodeGroup |> move ( -30, -130 )
     ]
 
 
