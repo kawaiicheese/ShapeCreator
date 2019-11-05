@@ -115,7 +115,7 @@ init =
     , trigCycleU = Sin
     , trigCycleV = Sin
     , latestPointV = ( 0, 0, rgb 160 128 96 )
-    , uTransform = ScaleU
+    , uTransform = Plain -- added default transformation
     , moveX = ZeroFun
     , moveY = UFunZero
     , moveX1 = UFunZero
@@ -239,6 +239,7 @@ type Transforms
     | ScaleY
     | MakeTransparent
     -- | EditableXSin
+    | Plain
 
 
 type ButtonDir
@@ -949,6 +950,9 @@ moveText mv =
 --         EditableXSin ->
 --             ScaleU
 
+        -- Plain ->
+        --     Plain
+
 
 -- cycleTransformsReverse tr =
 --     case tr of
@@ -976,8 +980,11 @@ moveText mv =
 --         EditableXSin ->
 --             MoveCircle
 
---         ScaleU ->
---             EditableXSin
+        -- ScaleU ->
+        --     EditableXSin
+        
+        -- Plain ->
+        --     Plain
 
 
 applyTransforms tr model =
@@ -1013,6 +1020,9 @@ applyTransforms tr model =
         -- EditableXSin ->
         --     move ( model.uCosGraph, 0 )
 
+        Plain ->
+            scale ( 1 )
+
 
 applyTransformsText tr =
     case tr of
@@ -1042,6 +1052,9 @@ applyTransformsText tr =
 
         -- EditableXSin ->
         --     " editable Y Sin "
+
+        Plain ->
+            "no transformation"
 
 
 applyTransformsYourCode model tr =
@@ -1073,6 +1086,8 @@ applyTransformsYourCode model tr =
         -- EditableXSin ->
         --     "|> move (" ++ String.fromFloat model.editableScale ++ "*cos(model.time) , " ++ "0" ++ ")"
 
+        Plain ->
+            ""
 
 
 -- change you app's state based on your new messages
