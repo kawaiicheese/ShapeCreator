@@ -1169,7 +1169,8 @@ view model =
 
         transformsGraphicsGroup =
             group
-                [ rect 210 200 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 45, 70 )
+                [ text "2. Choose your transformation" |> serif |> italic |> size 10 |> filled titleColour |> move ( -100, 10 ) -- Added steps to make layout consistent with ShapeCreator
+                , rect 210 200 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 45, 70 )
                 , square 15 |> outlined (solid 1) (rgb model.r model.g model.b) |> applyTransforms model.uTransform model |> makeTransparent 1.0 |> move ( 45, 60 )
                 , group
                     [ text (applyTransformsText model.uTransform) |> size 10 |> filled black |> move ( 4, 105 )
@@ -1325,7 +1326,10 @@ trigGraphAxis model =
 
 functionText model =
     group
-        [ text (showDigits 2 model.uScale ++ "*" ++ textTrig model.trigCycleU ++ "(" ++ cosinString model) |> fixedwidth |> size 10 |> filled black |> move ( -120, 0 )
+        [ 
+            text "1. Play around" |> serif |> italic |> size 10 |> filled titleColour |> move ( -220, 0 )
+            , text "with wave!" |> serif |> italic |> size 10 |> filled titleColour |> move ( -220, -10 )
+            , text (showDigits 2 model.uScale ++ "*" ++ textTrig model.trigCycleU ++ "(" ++ cosinString model) |> fixedwidth |> size 10 |> filled black |> move ( -120, 0 )
         ]
 
 
