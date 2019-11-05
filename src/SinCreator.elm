@@ -174,8 +174,8 @@ type Msg m
     | VDilationMinus
     | TrigCycleU
     | TrigCycleV
-    | UTransforms
-    | UTransformsReverse
+    -- | UTransforms
+    -- | UTransformsReverse
       --| MoveX
       --| MoveY
       --| MoveX1
@@ -238,7 +238,7 @@ type Transforms
     | ScaleX
     | ScaleY
     | MakeTransparent
-    | EditableXSin
+    -- | EditableXSin
 
 
 type ButtonDir
@@ -305,11 +305,11 @@ update msg model =
                 sinGraphPoint =
                     ( 0, uSinGraph, rgb r g b )
 
-                -- cosGraphPoint =
-                --     ( uCosGraph, 0, rgb r g b )
+                cosGraphPoint =
+                    ( uCosGraph, 0, rgb r g b )
 
-                -- uCosGraph =
-                --     model.uScale * cos uArg
+                uCosGraph =
+                    model.uScale * cos uArg
 
                 editableYSinForTransforms =
                     model.editableScale * cos editableArg
@@ -351,7 +351,7 @@ update msg model =
                 , r = r
                 , g = g
                 , b = b
-                -- , uCosGraph = uCosGraph
+                , uCosGraph = uCosGraph
                 , uSinGraph = uSinGraph
 
                 --, editableYSinForTransforms = editableYSinForTransforms
@@ -761,11 +761,11 @@ update msg model =
         TrigCycleV ->
             { model | trigCycleV = cycleTrig model.trigCycleV }
 
-        UTransforms ->
-            { model | uTransform = cycleTransforms model.uTransform }
+        -- UTransforms ->
+        --     { model | uTransform = cycleTransforms model.uTransform }
 
-        UTransformsReverse ->
-            { model | uTransform = cycleTransformsReverse model.uTransform }
+        -- UTransformsReverse ->
+        --     { model | uTransform = cycleTransformsReverse model.uTransform }
 
         {-
            MoveX ->
@@ -920,64 +920,64 @@ moveText mv =
 -}
 
 
-cycleTransforms tr =
-    case tr of
-        ScaleU ->
-            URotate
+-- cycleTransforms tr =
+--     case tr of
+--         ScaleU ->
+--             URotate
 
-        URotate ->
-            ScaleX
+--         URotate ->
+--             ScaleX
 
-        ScaleX ->
-            ScaleY
+--         ScaleX ->
+--             ScaleY
 
-        ScaleY ->
-            MakeTransparent
+--         ScaleY ->
+--             MakeTransparent
 
-        MakeTransparent ->
-            MoveX
+--         MakeTransparent ->
+--             MoveX
 
-        MoveX ->
-            MoveY
+--         MoveX ->
+--             MoveY
 
-        MoveY ->
-            MoveCircle
+--         MoveY ->
+--             MoveCircle
 
-        MoveCircle ->
-            EditableXSin
+--         MoveCircle ->
+--             EditableXSin
 
-        EditableXSin ->
-            ScaleU
+--         EditableXSin ->
+--             ScaleU
 
 
-cycleTransformsReverse tr =
-    case tr of
-        URotate ->
-            ScaleU
+-- cycleTransformsReverse tr =
+--     case tr of
+--         URotate ->
+--             ScaleU
 
-        ScaleX ->
-            URotate
+--         ScaleX ->
+--             URotate
 
-        ScaleY ->
-            ScaleX
+--         ScaleY ->
+--             ScaleX
 
-        MakeTransparent ->
-            ScaleY
+--         MakeTransparent ->
+--             ScaleY
 
-        MoveX ->
-            MakeTransparent
+--         MoveX ->
+--             MakeTransparent
 
-        MoveY ->
-            MoveX
+--         MoveY ->
+--             MoveX
 
-        MoveCircle ->
-            MoveY
+--         MoveCircle ->
+--             MoveY
 
-        EditableXSin ->
-            MoveCircle
+--         EditableXSin ->
+--             MoveCircle
 
-        ScaleU ->
-            EditableXSin
+--         ScaleU ->
+--             EditableXSin
 
 
 applyTransforms tr model =
@@ -1010,8 +1010,8 @@ applyTransforms tr model =
         MakeTransparent ->
             makeTransparent u
 
-        EditableXSin ->
-            move ( model.uCosGraph, 0 )
+        -- EditableXSin ->
+        --     move ( model.uCosGraph, 0 )
 
 
 applyTransformsText tr =
@@ -1040,8 +1040,8 @@ applyTransformsText tr =
         MakeTransparent ->
             " makeTransparent "
 
-        EditableXSin ->
-            " editable Y Sin "
+        -- EditableXSin ->
+        --     " editable Y Sin "
 
 
 applyTransformsYourCode model tr =
@@ -1070,8 +1070,8 @@ applyTransformsYourCode model tr =
         MakeTransparent ->
             "|> makeTransparent " ++ String.fromFloat model.uScale ++ "*sin(" ++ cosinString model
 
-        EditableXSin ->
-            "|> move (" ++ String.fromFloat model.editableScale ++ "*cos(model.time) , " ++ "0" ++ ")"
+        -- EditableXSin ->
+        --     "|> move (" ++ String.fromFloat model.editableScale ++ "*cos(model.time) , " ++ "0" ++ ")"
 
 
 
@@ -1168,26 +1168,14 @@ view model =
                 ]
 
         transformsGraphicsGroup =
-            group
-                [ text "2. Choose your transformation" |> serif |> italic |> size 10 |> filled titleColour |> move ( -100, 10 ) -- Added steps to make layout consistent with ShapeCreator
-                , rect 210 200 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( 45, 70 )
-                , square 15 |> outlined (solid 1) (rgb model.r model.g model.b) |> applyTransforms model.uTransform model |> makeTransparent 1.0 |> move ( 45, 60 )
-                , group
-                    [ text (applyTransformsText model.uTransform) |> size 10 |> filled black |> move ( 4, 105 )
-                    , triangle 8 |> filled (rgb 255 10 10) |> rotate (degrees 180) |> notifyTap UTransformsReverse |> move ( -70, 105 ) |> notifyLeave (TransM (\m -> { m | transformsLeftArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsLeftArrowTransp = 1 })) |> makeTransparent model.transformsLeftArrowTransp
-                    , triangle 8 |> filled (rgb 255 10 10) |> notifyTap UTransforms |> move ( 100, 105 ) |> notifyLeave (TransM (\m -> { m | transformsRightArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsRightArrowTransp = 1 })) |> makeTransparent model.transformsRightArrowTransp
-
-                    --, text (moveText model.transformFun) |> size 10 |> filled black |> notifyTap TransformsFunctionChange |> move ( x1, 105 ) |> notifyLeave (TransM (\m -> { m | transformsNumTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsNumTransp = 1 })) |> makeTransparent model.transformsNumTransp
-                    ]
-                    |> move ( 30, 50 )
-                ]
+                square 30 |> filled (rgb model.r model.g model.b) |> applyTransforms model.uTransform model |> makeTransparent 1.0 |> move ( 45, 65 )
 
         transformsGraphicsControlGroup =
             group
                 [
-                    rect 140 100 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( -35, -36 )
+                    rect 140 90 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( -35, -31 )
                     , rect 100 12 |> filled white |> addOutline (solid 1) lightGrey |> move ( -40, 14 )
-                    , text "4. Apply Transforms!" |> serif |> italic |> size 10 |> filled titleColour |> move ( -85, 11 )
+                    , text "2. Apply Transforms!" |> serif |> italic |> size 10 |> filled titleColour |> move ( -85, 11 ) -- add step to be consistent to shapecreator
                     -- list that shows all the transformations and highlights the one selected
                     , group <|
                         List.map2
@@ -1202,7 +1190,7 @@ view model =
                                     |> time4 model ss 140 10
                                     |> move ( -35, y )
                             )
-                            [ ScaleU, MoveX, MoveY, MoveCircle, URotate, ScaleX, ScaleY, MakeTransparent, EditableXSin ]
+                            [ ScaleU, MoveX, MoveY, MoveCircle, URotate, ScaleX, ScaleY, MakeTransparent] -- Removed EditableXSin
                             (List.map (\x -> -10 * Basics.toFloat x) (List.range 0 20))
                 ]
 
@@ -1275,16 +1263,16 @@ view model =
         cosLabel =
             text (String.fromFloat model.uScale ++ "* cos(" ++ cosinString model) |> fixedwidth |> size 8 |> filled black |> rotate (degrees 90) |> move ( -110, -82 ) |> notifyTap (TransM (\m -> { m | trigCycleU = Cos }))
     in
-    [ graphPaperCustom 10 1 (rgb 164 0 0) |> makeTransparent 0.25 -- axes and selected coordinate ticks
+    [ graphPaperCustom 10 1 (rgb 255 102 102) |> makeTransparent 0.5 -- axes and selected coordinate ticks
     , group
-        [ rect 1000 0.5 |> filled brown
-        , rect 0.5 1000 |> filled brown
-        , group (sinCurve model) |> move ( 0, 50 )
-        , group (cosCurve model) |> move ( -50, 0 )
-        , trigGraphAxis model |> move ( -185, 70 )
-        , circleGraphics
+        [ rect 1000 0.5 |> filled (rgb 164 0 0)
+        , rect 0.5 1000 |> filled (rgb 164 0 0)
+        , group (sinCurve model) |> move ( 0, 100 )
+        -- , group (cosCurve model) |> move ( -50, 0 )
+        , trigGraphAxis model |> move ( -185, 120 )
+        , circleGraphics |> move ( 0, 50 )
         ]
-        |> move ( -140, 80 )
+        |> move ( -30, -30 )
     , cosLabel |> move ( -127, 67 )
     , transformsGraphicsGroup |> move ( -75, -95 )
     , transformsGraphicsControlGroup |> move( 200, 50 )
