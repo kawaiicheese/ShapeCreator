@@ -1179,22 +1179,30 @@ view model =
                     --, text (moveText model.transformFun) |> size 10 |> filled black |> notifyTap TransformsFunctionChange |> move ( x1, 105 ) |> notifyLeave (TransM (\m -> { m | transformsNumTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsNumTransp = 1 })) |> makeTransparent model.transformsNumTransp
                     ]
                     |> move ( 30, 50 )
-                -- list that shows all the transformations and highlights the one selected
-                , group <|
-                    List.map2
-                        (\ss y ->
-                            applyTransformsText ss
-                                |> text
-                                |> fixedwidth
-                                |> size 10
-                                |> filled black
-                                |> notifyTap (TransM (\m -> { m | uTransform = ss } ))
-                                |> move ( -68, -2.5 )
-                                |> time4 model ss 140 10
-                                |> move ( -35, y )
-                        )
-                        [ ScaleU, MoveX, MoveY, MoveCircle, URotate, ScaleX, ScaleY, MakeTransparent, EditableXSin ]
-                        (List.map (\x -> -10 * Basics.toFloat x) (List.range 0 20))
+                ]
+
+        transformsGraphicsControlGroup =
+            group
+                [
+                    rect 140 100 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( -35, -36 )
+                    , rect 100 12 |> filled white |> addOutline (solid 1) lightGrey |> move ( -40, 14 )
+                    , text "4. Apply Transforms!" |> serif |> italic |> size 10 |> filled titleColour |> move ( -85, 11 )
+                    -- list that shows all the transformations and highlights the one selected
+                    , group <|
+                        List.map2
+                            (\ss y ->
+                                applyTransformsText ss
+                                    |> text
+                                    |> fixedwidth
+                                    |> size 10
+                                    |> filled black
+                                    |> notifyTap (TransM (\m -> { m | uTransform = ss } ))
+                                    |> move ( -68, -2.5 )
+                                    |> time4 model ss 140 10
+                                    |> move ( -35, y )
+                            )
+                            [ ScaleU, MoveX, MoveY, MoveCircle, URotate, ScaleX, ScaleY, MakeTransparent, EditableXSin ]
+                            (List.map (\x -> -10 * Basics.toFloat x) (List.range 0 20))
                 ]
 
         {-
@@ -1263,21 +1271,10 @@ view model =
                 , circle (abs uScale) |> outlined (solid 1) black |> move ( -50, 50 )
                 , circle 2 |> filled (rgb model.r model.g model.b) |> move ( -50 + model.uScale * notTrigCycleU uArg, 50 + u )
                 ]
-
-        titlesText =
-            group
-                [ tt "1. Modify your functions!" |> move ( -50, 175 )
-                , tt "2. Choose a colour!" |> move ( 140, 125 )
-                , tt "3. Apply Transforms!" |> move ( 140, 35 )
-                , tt "4. Move it!" |> move ( -220, 5 )
-                , text "--The move function below will be in 'Your Code!' " |> serif |> italic |> size 6 |> filled titleColour |> move ( -250, -5 )
-                , tt "5. Your Code!" |> move ( 40, -70 )
-                ]
-
         cosLabel =
             text (String.fromFloat model.uScale ++ "* cos(" ++ cosinString model) |> fixedwidth |> size 8 |> filled black |> rotate (degrees 90) |> move ( -110, -82 ) |> notifyTap (TransM (\m -> { m | trigCycleU = Cos }))
     in
-    [ graphPaperCustom 10 1 (rgb 255 137 5) |> makeTransparent 0.25 -- axes and selected coordinate ticks
+    [ graphPaperCustom 10 1 (rgb 164 0 0) |> makeTransparent 0.25 -- axes and selected coordinate ticks
     , group
         [ rect 1000 0.5 |> filled brown
         , rect 0.5 1000 |> filled brown
@@ -1287,9 +1284,9 @@ view model =
         , circleGraphics
         ]
         |> move ( -140, 80 )
-    , titlesText |> makeTransparent 0
     , cosLabel |> move ( -127, 67 )
     , transformsGraphicsGroup |> move ( -75, -95 )
+    , transformsGraphicsControlGroup |> move( 200, 50 )
 
     --, moveGraphicsX |> move ( 180, 220 )
     --, moveGraphicsY |> move ( 60, 50 )
@@ -1349,7 +1346,7 @@ time4 model t w h uTransform =
     if t == model.uTransform
 
     then
-        group [ rect w h |> filled (rgba 255 137 5 (0.6 + 0.4 * sin (5 * model.currentTime - 1.5))), uTransform ]
+        group [ rect w h |> filled (rgba 255 0 0 (0.4 + 0.4 * sin (5 * model.currentTime - 1.5))), uTransform ]
 
     else
         uTransform

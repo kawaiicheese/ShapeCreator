@@ -18888,9 +18888,9 @@ var author$project$SinCreator$time4 = F5(
 					A4(
 						MacCASOutreach$graphicsvg$GraphicSVG$rgba,
 						255,
-						137,
-						5,
-						0.6 + (0.4 * elm$core$Basics$sin((5 * model.currentTime) - 1.5))),
+						0,
+						0,
+						0.4 + (0.4 * elm$core$Basics$sin((5 * model.currentTime) - 1.5))),
 					A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, w, h)),
 					uTransform
 				])) : uTransform;
@@ -19113,7 +19113,45 @@ var author$project$SinCreator$view = function (model) {
 												MacCASOutreach$graphicsvg$GraphicSVG$filled,
 												A3(MacCASOutreach$graphicsvg$GraphicSVG$rgb, 255, 10, 10),
 												MacCASOutreach$graphicsvg$GraphicSVG$triangle(8)))))))
-						]))),
+						])))
+			]));
+	var transformsGraphicsControlGroup = MacCASOutreach$graphicsvg$GraphicSVG$group(
+		_List_fromArray(
+			[
+				A2(
+				MacCASOutreach$graphicsvg$GraphicSVG$move,
+				_Utils_Tuple2(-35, -36),
+				A3(
+					MacCASOutreach$graphicsvg$GraphicSVG$addOutline,
+					MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
+					MacCASOutreach$graphicsvg$GraphicSVG$lightGrey,
+					A2(
+						MacCASOutreach$graphicsvg$GraphicSVG$filled,
+						A4(MacCASOutreach$graphicsvg$GraphicSVG$rgba, 255, 255, 255, 0.5),
+						A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, 140, 100)))),
+				A2(
+				MacCASOutreach$graphicsvg$GraphicSVG$move,
+				_Utils_Tuple2(-40, 14),
+				A3(
+					MacCASOutreach$graphicsvg$GraphicSVG$addOutline,
+					MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
+					MacCASOutreach$graphicsvg$GraphicSVG$lightGrey,
+					A2(
+						MacCASOutreach$graphicsvg$GraphicSVG$filled,
+						MacCASOutreach$graphicsvg$GraphicSVG$white,
+						A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, 100, 12)))),
+				A2(
+				MacCASOutreach$graphicsvg$GraphicSVG$move,
+				_Utils_Tuple2(-85, 11),
+				A2(
+					MacCASOutreach$graphicsvg$GraphicSVG$filled,
+					author$project$SinCreator$titleColour,
+					A2(
+						MacCASOutreach$graphicsvg$GraphicSVG$size,
+						10,
+						MacCASOutreach$graphicsvg$GraphicSVG$italic(
+							MacCASOutreach$graphicsvg$GraphicSVG$serif(
+								MacCASOutreach$graphicsvg$GraphicSVG$text('4. Apply Transforms!')))))),
 				MacCASOutreach$graphicsvg$GraphicSVG$group(
 				A3(
 					elm$core$List$map2,
@@ -19157,42 +19195,6 @@ var author$project$SinCreator$view = function (model) {
 							return (-10) * x;
 						},
 						A2(elm$core$List$range, 0, 20))))
-			]));
-	var titlesText = MacCASOutreach$graphicsvg$GraphicSVG$group(
-		_List_fromArray(
-			[
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(-50, 175),
-				tt('1. Modify your functions!')),
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(140, 125),
-				tt('2. Choose a colour!')),
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(140, 35),
-				tt('3. Apply Transforms!')),
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(-220, 5),
-				tt('4. Move it!')),
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(-250, -5),
-				A2(
-					MacCASOutreach$graphicsvg$GraphicSVG$filled,
-					author$project$SinCreator$titleColour,
-					A2(
-						MacCASOutreach$graphicsvg$GraphicSVG$size,
-						6,
-						MacCASOutreach$graphicsvg$GraphicSVG$italic(
-							MacCASOutreach$graphicsvg$GraphicSVG$serif(
-								MacCASOutreach$graphicsvg$GraphicSVG$text('--The move function below will be in \'Your Code!\' ')))))),
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(40, -70),
-				tt('5. Your Code!'))
 			]));
 	var setofTriangles = MacCASOutreach$graphicsvg$GraphicSVG$group(
 		_List_fromArray(
@@ -19588,7 +19590,7 @@ var author$project$SinCreator$view = function (model) {
 				MacCASOutreach$graphicsvg$GraphicSVG$graphPaperCustom,
 				10,
 				1,
-				A3(MacCASOutreach$graphicsvg$GraphicSVG$rgb, 255, 137, 5))),
+				A3(MacCASOutreach$graphicsvg$GraphicSVG$rgb, 164, 0, 0))),
 			A2(
 			MacCASOutreach$graphicsvg$GraphicSVG$move,
 			_Utils_Tuple2(-140, 80),
@@ -19619,7 +19621,6 @@ var author$project$SinCreator$view = function (model) {
 						author$project$SinCreator$trigGraphAxis(model)),
 						circleGraphics
 					]))),
-			A2(MacCASOutreach$graphicsvg$GraphicSVG$makeTransparent, 0, titlesText),
 			A2(
 			MacCASOutreach$graphicsvg$GraphicSVG$move,
 			_Utils_Tuple2(-127, 67),
@@ -19628,6 +19629,10 @@ var author$project$SinCreator$view = function (model) {
 			MacCASOutreach$graphicsvg$GraphicSVG$move,
 			_Utils_Tuple2(-75, -95),
 			transformsGraphicsGroup),
+			A2(
+			MacCASOutreach$graphicsvg$GraphicSVG$move,
+			_Utils_Tuple2(200, 50),
+			transformsGraphicsControlGroup),
 			A2(
 			MacCASOutreach$graphicsvg$GraphicSVG$move,
 			_Utils_Tuple2(-20, 15),
