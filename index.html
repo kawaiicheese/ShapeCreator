@@ -10248,7 +10248,6 @@ var author$project$SinCreator$update = F2(
 				var vArg = model.vArg + (model.vDilation * (t - (t - 5.0e-2)));
 				var v = model.vScale * A2(author$project$SinCreator$evalTrig, model.trigCycleV, vArg);
 				var uArg = model.uArg + (model.uDilation * (t - (t - 5.0e-2)));
-				var uCosGraph = model.uScale * elm$core$Basics$cos(uArg);
 				var uSinGraph = model.uScale * elm$core$Basics$sin(uArg);
 				var u = model.uScale * A2(author$project$SinCreator$evalTrig, model.trigCycleU, uArg);
 				var r = A3(
@@ -10266,11 +10265,11 @@ var author$project$SinCreator$update = F2(
 				var editableArg = model.editableArg + (model.editableDilation * (t - (t - 5.0e-2)));
 				var editableYSinForTransforms = model.editableScale * elm$core$Basics$cos(editableArg);
 				var currentTime = function () {
-					var _n14 = model.time;
-					if (_n14.$ === 'Nothing') {
+					var _n13 = model.time;
+					if (_n13.$ === 'Nothing') {
 						return 0;
 					} else {
-						var ct = _n14.a;
+						var ct = _n13.a;
 						return ct;
 					}
 				}();
@@ -10280,10 +10279,6 @@ var author$project$SinCreator$update = F2(
 					255,
 					elm$core$Basics$abs(
 						model.bScale * A3(author$project$SinCreator$eval, model.bFun, u, v)));
-				var cosGraphPoint = _Utils_Tuple3(
-					uCosGraph,
-					0,
-					A3(MacCASOutreach$graphicsvg$GraphicSVG$rgb, r, g, b));
 				var sinGraphPoint = _Utils_Tuple3(
 					0,
 					uSinGraph,
@@ -10311,26 +10306,10 @@ var author$project$SinCreator$update = F2(
 								return model.buttonDownTime + 0.1;
 							}
 						}(),
-						cosGraph: A2(
-							elm$core$List$take,
-							2470,
-							_Utils_ap(
-								_List_fromArray(
-									[cosGraphPoint]),
-								A2(
-									elm$core$List$filterMap,
-									function (_n3) {
-										var xx = _n3.a;
-										var yy = _n3.b;
-										var cc = _n3.c;
-										return (_Utils_cmp(yy, -model.cosWaveLength) < 1) ? elm$core$Maybe$Nothing : elm$core$Maybe$Just(
-											_Utils_Tuple3(xx, yy - 0.35, cc));
-									},
-									model.cosGraph))),
 						currentTime: currentTime,
 						editableDilation: function () {
-							var _n4 = model.currentButton;
-							switch (_n4.$) {
+							var _n3 = model.currentButton;
+							switch (_n3.$) {
 								case 'EditableFrequencyUp':
 									return (_Utils_cmp(model.editableDilation, model.maxFrequency) < 0) ? (model.editableDilation + author$project$SinCreator$curveX(model.buttonDownTime)) : ((_Utils_cmp(model.editableDilation, model.maxFrequency) > 0) ? model.maxFrequency : model.editableDilation);
 								case 'EditableFrequencyDown':
@@ -10340,8 +10319,8 @@ var author$project$SinCreator$update = F2(
 							}
 						}(),
 						editableScale: function () {
-							var _n5 = model.currentButton;
-							switch (_n5.$) {
+							var _n4 = model.currentButton;
+							switch (_n4.$) {
 								case 'EditableAmplitudeUp':
 									return (_Utils_cmp(model.editableScale, model.maxAmplitude) < 0) ? (model.editableScale + author$project$SinCreator$curveX(model.buttonDownTime)) : ((_Utils_cmp(model.editableScale, model.maxAmplitude) > 0) ? model.maxAmplitude : model.editableScale);
 								case 'EditableAmplitudeDown':
@@ -10351,8 +10330,8 @@ var author$project$SinCreator$update = F2(
 							}
 						}(),
 						editableShift: function () {
-							var _n6 = model.currentButton;
-							switch (_n6.$) {
+							var _n5 = model.currentButton;
+							switch (_n5.$) {
 								case 'ShiftUp':
 									return model.editableShift + author$project$SinCreator$curveX(model.buttonDownTime);
 								case 'ShiftDown':
@@ -10363,8 +10342,8 @@ var author$project$SinCreator$update = F2(
 						}(),
 						g: g,
 						gScale: function () {
-							var _n7 = model.currentButton;
-							switch (_n7.$) {
+							var _n6 = model.currentButton;
+							switch (_n6.$) {
 								case 'GreenUp':
 									return (model.gScale < 252) ? (model.gScale + author$project$SinCreator$curveX(model.buttonDownTime)) : model.gScale;
 								case 'GreenDown':
@@ -10375,8 +10354,8 @@ var author$project$SinCreator$update = F2(
 						}(),
 						r: r,
 						rScale: function () {
-							var _n8 = model.currentButton;
-							switch (_n8.$) {
+							var _n7 = model.currentButton;
+							switch (_n7.$) {
 								case 'RedUp':
 									return (model.rScale < 253) ? (model.rScale + author$project$SinCreator$curveX(model.buttonDownTime)) : model.rScale;
 								case 'RedDown':
@@ -10393,10 +10372,10 @@ var author$project$SinCreator$update = F2(
 									[sinGraphPoint]),
 								A2(
 									elm$core$List$filterMap,
-									function (_n9) {
-										var xx = _n9.a;
-										var yy = _n9.b;
-										var cc = _n9.c;
+									function (_n8) {
+										var xx = _n8.a;
+										var yy = _n8.b;
+										var cc = _n8.c;
 										return (_Utils_cmp(xx, model.sinWaveLength) > -1) ? elm$core$Maybe$Nothing : elm$core$Maybe$Just(
 											_Utils_Tuple3(xx + 0.35, yy, cc));
 									},
@@ -10404,10 +10383,9 @@ var author$project$SinCreator$update = F2(
 						time: elm$core$Maybe$Just(t),
 						u: u,
 						uArg: uArg,
-						uCosGraph: uCosGraph,
 						uDilation: function () {
-							var _n10 = model.currentButton;
-							switch (_n10.$) {
+							var _n9 = model.currentButton;
+							switch (_n9.$) {
 								case 'FrequencyUp':
 									return (_Utils_cmp(model.uDilation, model.maxFrequency) < 0) ? (model.uDilation + author$project$SinCreator$curveX(model.buttonDownTime)) : ((_Utils_cmp(model.uDilation, model.maxFrequency) > 0) ? model.maxFrequency : model.uDilation);
 								case 'FrequencyDown':
@@ -10417,8 +10395,8 @@ var author$project$SinCreator$update = F2(
 							}
 						}(),
 						uScale: function () {
-							var _n11 = model.currentButton;
-							switch (_n11.$) {
+							var _n10 = model.currentButton;
+							switch (_n10.$) {
 								case 'AmplitudeUp':
 									return (_Utils_cmp(model.uScale, model.maxAmplitude) < 0) ? (model.uScale + author$project$SinCreator$curveX(model.buttonDownTime)) : ((_Utils_cmp(model.uScale, model.maxAmplitude) > 0) ? model.maxAmplitude : model.uScale);
 								case 'AmplitudeDown':
@@ -10428,8 +10406,8 @@ var author$project$SinCreator$update = F2(
 							}
 						}(),
 						uShift: function () {
-							var _n12 = model.currentButton;
-							switch (_n12.$) {
+							var _n11 = model.currentButton;
+							switch (_n11.$) {
 								case 'ShiftUp':
 									return model.uShift + author$project$SinCreator$curveX(model.buttonDownTime);
 								case 'ShiftDown':
@@ -10442,8 +10420,8 @@ var author$project$SinCreator$update = F2(
 						v: v,
 						vArg: vArg,
 						vScale: function () {
-							var _n13 = model.currentButton;
-							switch (_n13.$) {
+							var _n12 = model.currentButton;
+							switch (_n12.$) {
 								case 'VUP':
 									return (model.vScale < 48) ? (model.vScale + author$project$SinCreator$curveX(model.buttonDownTime)) : model.vScale;
 								case 'VDown':
@@ -18918,21 +18896,7 @@ var author$project$SinCreator$trigGraphAxis = function (model) {
 				A2(
 					MacCASOutreach$graphicsvg$GraphicSVG$filled,
 					MacCASOutreach$graphicsvg$GraphicSVG$black,
-					A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, model.sinWaveLength, 0.5))),
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(132, -70),
-				A2(
-					MacCASOutreach$graphicsvg$GraphicSVG$filled,
-					MacCASOutreach$graphicsvg$GraphicSVG$black,
-					A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, 105, 0.5))),
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(135, (-70) - (model.cosWaveLength / 2)),
-				A2(
-					MacCASOutreach$graphicsvg$GraphicSVG$filled,
-					MacCASOutreach$graphicsvg$GraphicSVG$black,
-					A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, 0.5, model.cosWaveLength)))
+					A2(MacCASOutreach$graphicsvg$GraphicSVG$rect, model.sinWaveLength, 0.5)))
 			]));
 };
 var author$project$SinCreator$upArrow = A2(
@@ -19530,28 +19494,8 @@ var author$project$SinCreator$view = function (model) {
 							50 + u),
 						_Utils_Tuple2(0, 50 + model.uSinGraph)))),
 				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$makeTransparent,
-				0.5,
-				A3(
-					MacCASOutreach$graphicsvg$GraphicSVG$outlined,
-					MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
-					A3(MacCASOutreach$graphicsvg$GraphicSVG$rgb, model.r, model.g, model.b),
-					A2(
-						MacCASOutreach$graphicsvg$GraphicSVG$line,
-						_Utils_Tuple2(
-							(-50) + (model.uScale * notTrigCycleU(uArg)),
-							50 + u),
-						_Utils_Tuple2(model.uCosGraph - 50, 0)))),
-				A2(
 				MacCASOutreach$graphicsvg$GraphicSVG$move,
 				_Utils_Tuple2(0, 50 + model.uSinGraph),
-				A2(
-					MacCASOutreach$graphicsvg$GraphicSVG$filled,
-					A3(MacCASOutreach$graphicsvg$GraphicSVG$rgb, model.r, model.g, model.b),
-					MacCASOutreach$graphicsvg$GraphicSVG$circle(2))),
-				A2(
-				MacCASOutreach$graphicsvg$GraphicSVG$move,
-				_Utils_Tuple2(model.uCosGraph - 50, 0),
 				A2(
 					MacCASOutreach$graphicsvg$GraphicSVG$filled,
 					A3(MacCASOutreach$graphicsvg$GraphicSVG$rgb, model.r, model.g, model.b),

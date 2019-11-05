@@ -256,11 +256,11 @@ update msg model =
                 sinGraphPoint =
                     ( 0, uSinGraph, rgb r g b )
 
-                cosGraphPoint =
-                    ( uCosGraph, 0, rgb r g b )
+                -- cosGraphPoint =
+                --     ( uCosGraph, 0, rgb r g b )
 
-                uCosGraph =
-                    model.uScale * cos uArg
+                -- uCosGraph =
+                --     model.uScale * cos uArg
 
                 editableYSinForTransforms =
                     model.editableScale * cos editableArg
@@ -285,24 +285,24 @@ update msg model =
                                 )
                                 model.sinGraph
                         )
-                , cosGraph =
-                    List.take 2470
-                        ([ cosGraphPoint ]
-                            ++ List.filterMap
-                                (\( xx, yy, cc ) ->
-                                    -- Subtract 130 to account for the ratio of the screen and remove excess
-                                    if yy <= -model.cosWaveLength then
-                                        Nothing
+                -- , cosGraph =
+                --     List.take 2470
+                --         ([ cosGraphPoint ]
+                --             ++ List.filterMap
+                --                 (\( xx, yy, cc ) ->
+                --                     -- Subtract 130 to account for the ratio of the screen and remove excess
+                --                     if yy <= -model.cosWaveLength then
+                --                         Nothing
 
-                                    else
-                                        Just ( xx, yy - 0.35, cc )
-                                )
-                                model.cosGraph
-                        )
+                --                     else
+                --                         Just ( xx, yy - 0.35, cc )
+                --                 )
+                --                 model.cosGraph
+                --         )
                 , r = r
                 , g = g
                 , b = b
-                , uCosGraph = uCosGraph
+                -- , uCosGraph = uCosGraph
                 , uSinGraph = uSinGraph
 
                 --, editableYSinForTransforms = editableYSinForTransforms
@@ -1192,9 +1192,9 @@ view model =
             group
                 [ line ( -50, 50 ) ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.25
                 , line ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) ( 0, 50 + model.uSinGraph ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.5
-                , line ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) ( model.uCosGraph - 50, 0 ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.5
+                -- , line ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) ( model.uCosGraph - 50, 0 ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.5
                 , circle 2 |> filled (rgb model.r model.g model.b) |> move ( 0, 50 + model.uSinGraph )
-                , circle 2 |> filled (rgb model.r model.g model.b) |> move ( model.uCosGraph - 50, 0 )
+                -- , circle 2 |> filled (rgb model.r model.g model.b) |> move ( model.uCosGraph - 50, 0 )
                 , circle (abs uScale) |> outlined (solid 1) black |> move ( -50, 50 )
                 , circle 2 |> filled (rgb model.r model.g model.b) |> move ( -50 + model.uScale * notTrigCycleU uArg, 50 + u )
                 ]
@@ -1253,8 +1253,8 @@ trigGraphAxis model =
         , rect model.sinWaveLength 0.5 |> filled black |> move ( 185 + model.sinWaveLength / 2, -20 )
 
         -- Subtract 130 to account for the ratio of the screen and remove excess
-        , rect 105 0.5 |> filled black |> move ( 132, -70 )
-        , rect 0.5 model.cosWaveLength |> filled black |> move ( 135, -70 - model.cosWaveLength / 2 )
+        -- , rect 105 0.5 |> filled black |> move ( 132, -70 )
+        -- , rect 0.5 model.cosWaveLength |> filled black |> move ( 135, -70 - model.cosWaveLength / 2 )
         ]
 
 
