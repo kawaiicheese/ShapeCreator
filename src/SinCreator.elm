@@ -1,4 +1,52 @@
 module SinCreator exposing (..)
+{-  
+
+Members:
+Suhavi Sandhu 400025726
+Joseph Lu 400022356
+
+
+User:  Our user is a child who is learning about the different transformations you can do using Elm.
+
+Activity:  User may want to add an animation to their Elm application.
+
+Emotion:  User feels excited to try different transformations and see the different shapes they can use.
+
+Tasks:  Changing how the shape looks and moves and then copying the code that creates the animation
+
+Typical Interaction:  First the user changes the wave to have a height of 6 and a frequency of 3. Then they select the rotate transformation. Finally, they copy the code.
+
+### Constraints
+- we wanted to constrain what the user can do by taking the option of the cos wave since it had nothing to do with what the user wants to do
+- this made our interface less cluttered
+
+### Signifier
+- we wanted to add the following steps so the user would know what actions do what
+1. modify wave amplitude, phase, frequency
+2. pick animation
+3. copy code
+
+### Disoverability
+- we wanted to show all the shape/anmation options instead of cycling through them with arrow buttons
+
+### Conceptual Model
+- model similar to other activities such as shape creator
+
+### Feedback
+- highlight the transformation that is currently shown
+- add a scale to the amplitude
+- we made the shape box initialially have nothing, that way the user does not get intimidated by what is happening,
+they only realize what the shape box does once they select an option
+
+### Mapping
+- we wanted to make the steps easy to read so we did a top-down spatial layout, which is helpful for users so they know the order even without looking at the step number
+
+### Affordance
+- the shape generator options affords the different animations you can generate
+- we wanted the relationship between the user and the object to be as obvious as possible, that way the user will not get distracted 
+and the user will use the application the way it is meant to be used.
+
+-}
 
 {-
 Copyright 2017-2019 Christopher Kumar Anand,  Adele Olejarz, Chinmay Sheth, Yaminah Qureshi, Graeme Crawley and students of McMaster University.  Based on the Shape Creator by Levin Noronha.
@@ -1130,6 +1178,22 @@ view model =
                     --, text (moveText model.transformFun) |> size 10 |> filled black |> notifyTap TransformsFunctionChange |> move ( x1, 105 ) |> notifyLeave (TransM (\m -> { m | transformsNumTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsNumTransp = 1 })) |> makeTransparent model.transformsNumTransp
                     ]
                     |> move ( 30, 50 )
+                -- list that shows all the transformations and highlights the one selected
+                , group <|
+                    List.map2
+                        (\ss y ->
+                            applyTransformsText ss
+                                |> text
+                                |> fixedwidth
+                                |> size 10
+                                |> filled black
+                                |> notifyTap (TransM (\m -> { m | uTransform = ss } ))
+                                |> move ( -68, -2.5 )
+                                |> time4 model ss 140 10
+                                |> move ( -35, y )
+                        )
+                        [ ScaleU, MoveX, MoveY, MoveCircle, URotate, ScaleX, ScaleY, MakeTransparent, EditableXSin ]
+                        (List.map (\x -> -10 * Basics.toFloat x) (List.range 0 20))
                 ]
 
         {-
@@ -1278,3 +1342,13 @@ copiable str =
 
 copiable2 str =
     str |> text |> selectable |> fixedwidth |> size 9 |> filled black
+
+-- Checks if user wants to perform transformation then calls uTransform, using current time.
+time4 model t w h uTransform =
+    if t == model.uTransform
+
+    then
+        group [ rect w h |> filled (rgba 255 137 5 (0.6 + 0.4 * sin (5 * model.currentTime - 1.5))), uTransform ]
+
+    else
+        uTransform
