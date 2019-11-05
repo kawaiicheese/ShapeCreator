@@ -1309,7 +1309,7 @@ view model =
         [ functionText model |> move ( 5, 150 )
         , setofTriangles |> move ( 0, 165 )
         ]
-        |> move ( -20, 15 )
+        |> move ( 200, 15 )
 
     --, rgbGraphics |> move ( 140, 90 )
     , yourCodeGroup |> move ( 30, -170 )
@@ -1337,9 +1337,11 @@ trigGraphAxis model =
 
 functionText model =
     group
-        [ 
-            text "1. Play around" |> serif |> italic |> size 10 |> filled titleColour |> move ( -220, 0 )
-            , text "with wave!" |> serif |> italic |> size 10 |> filled titleColour |> move ( -220, -10 )
+        [
+            rect 170 45 |> filled (rgba 255 255 255 0.5) |> addOutline (solid 1) lightGrey |> move ( -55, 0 )
+            , rect 80 30 |> filled white |> addOutline (solid 1) lightGrey |> move ( -170, 6 )
+            , text "1. Play around" |> serif |> italic |> size 10 |> filled titleColour |> move ( -200, 10 )
+            , text "with wave!" |> serif |> italic |> size 10 |> filled titleColour |> move ( -200, 0 )
             , text (showDigits 2 model.uScale ++ "*" ++ textTrig model.trigCycleU ++ "(" ++ cosinString model) |> fixedwidth |> size 10 |> filled black |> move ( -120, 0 )
         ]
 
