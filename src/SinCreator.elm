@@ -1,4 +1,52 @@
 module SinCreator exposing (..)
+{-  
+
+Members:
+Suhavi Sandhu 400025726
+Joseph Lu 400022356
+
+
+User:  Our user is a child who is learning about the different transformations you can do using Elm.
+
+Activity:  User may want to add an animation to their Elm application.
+
+Emotion:  User feels excited to try different transformations and see the different shapes they can use.
+
+Tasks:  Changing how the shape looks and moves and then copying the code that creates the animation
+
+Typical Interaction:  First the user changes the wave to have a height of 6 and a frequency of 3. Then they select the rotate transformation. Finally, they copy the code.
+
+### Constraints
+- we wanted to constrain what the user can do by taking the option of the cos wave since it had nothing to do with what the user wants to do
+- this made our interface less cluttered
+
+### Signifier
+- we wanted to add the following steps so the user would know what actions do what
+1. modify wave amplitude, phase, frequency
+2. pick animation
+3. copy code
+
+### Disoverability
+- we wanted to show all the shape/anmation options instead of cycling through them with arrow buttons
+
+### Conceptual Model
+- model similar to other activities such as shape creator
+
+### Feedback
+- highlight the transformation that is currently shown
+- add a scale to the amplitude
+- we made the shape box initialially have nothing, that way the user does not get intimidated by what is happening,
+they only realize what the shape box does once they select an option
+
+### Mapping
+- we wanted to make the steps easy to read so we did a top-down spatial layout, which is helpful for users so they know the order even without looking at the step number
+
+### Affordance
+- the shape generator options affords the different animations you can generate
+- we wanted the relationship between the user and the object to be as obvious as possible, that way the user will not get distracted 
+and the user will use the application the way it is meant to be used.
+
+-}
 
 {-
 Copyright 2017-2019 Christopher Kumar Anand,  Adele Olejarz, Chinmay Sheth, Yaminah Qureshi, Graeme Crawley and students of McMaster University.  Based on the Shape Creator by Levin Noronha.
